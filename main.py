@@ -1,6 +1,5 @@
 from tkinter import *
 
-
 # Define the depth limit for the Minimax algorithm (adjust as needed)
 MAX_DEPTH = 5
 
@@ -46,17 +45,20 @@ def end_game_window():
     # Create the second window and position it in the middle of the first window
     window.geometry(f"+{x}+{y}")
 
+    # Calculate font size based on the window dimensions
+    font_size = int(window.winfo_width() // 15)
+
     button_x_new_game = int(window.winfo_width() // 3.2)
     button_y_new_game = int(window.winfo_height() // 2)
     button_x_exit = int(window.winfo_width() // 2.5)
     button_y_exit = int(window.winfo_height() // 1.5)
 
-    new_game_btn = Button(window, text='New Game', font=('bold', 25), command=reset)
+    new_game_btn = Button(window, text='New Game', font=('bold', font_size), command=reset)
     # new_game_btn.place(x=130, y=200)
     # new_game_btn.pack(side=TOP, anchor='center')
     new_game_btn.place(x=button_x_new_game, y=button_y_new_game)
 
-    exit_btn = Button(window, text='Exit', font=('bold', 25), command=exit_game)
+    exit_btn = Button(window, text='Exit', font=('bold', font_size), command=exit_game)
     # exit_btn.place(x=170, y=250)
     # exit_btn.pack()
     exit_btn.place(x=button_x_exit, y=button_y_exit)
@@ -123,16 +125,21 @@ def ai():
     board[ai_row][ai_col] = ai_symbol
     if check_win(board, ai_symbol):
         end_game_window()
-        text = Label(window, text='You lost!', font=('bold', 35))
-        text_x = int(window.winfo_width() // 3)
+        font_size = int(window.winfo_width() // 10)
+        text = Label(window, text='You lost!', font=('bold', font_size))
+        text_x = int(window.winfo_width() // 3.2)
         text_y = int(window.winfo_height() // 4)
         # text.place(x=135, y=100)
         text.place(x=text_x, y=text_y)
         disable_all_buttons()
     elif len(get_empty_cells(board)) == 0:
         end_game_window()
-        text = Label(window, text='Draw!', font=('bold', 35))
-        text.place(x=160, y=100)
+        font_size = int(window.winfo_width() // 10)
+        text = Label(window, text='Draw!', font=('bold', font_size))
+        text_x = int(window.winfo_width() // 2.5)
+        text_y = int(window.winfo_height() // 4)
+        # text.place(x=160, y=100)
+        text.place(x=text_x, y=text_y)
 
 
 def user_move(row, col):
