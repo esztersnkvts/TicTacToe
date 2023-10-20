@@ -133,7 +133,7 @@ def ai():
         font_size = int(window.winfo_width() // 10)
         text = Label(window, text='Draw!', font=('bold', font_size))
         # text.place(x=160, y=100)
-        text.grid(row=1, column=2)
+        text.grid(row=1, column=2, sticky='nw')
 
 
 def user_move(row, col):
