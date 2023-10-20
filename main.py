@@ -133,7 +133,7 @@ def ai():
         font_size = int(window.winfo_width() // 10)
         text = Label(window, text='Draw!', font=('bold', font_size))
         # text.place(x=160, y=100)
-        text.grid(row=1, column=2, sticky='nw')
+        text.grid(row=1, column=2)
 
 
 def user_move(row, col):
@@ -141,13 +141,17 @@ def user_move(row, col):
     board[row][col] = user_symbol
     if check_win(board, user_symbol):
         end_game_window()
-        text = Label(window, text='You won!', font=('bold', 35))
-        text.place(x=135, y=100)
+        font_size = int(window.winfo_width() // 10)
+        text = Label(window, text='You won!', font=('bold', font_size))
+        # text.place(x=135, y=100)
+        text.grid(row=1, column=2)
         disable_all_buttons()
     elif len(get_empty_cells(board)) == 0:
         end_game_window()
-        text = Label(window, text='Draw!', font=('bold', 35))
-        text.place(x=160, y=100)
+        font_size = int(window.winfo_width() // 10)
+        text = Label(window, text='Draw!', font=('bold', font_size))
+        # text.place(x=160, y=100)
+        text.grid(row=1, column=2)
     else:
         ai()
 
@@ -190,14 +194,17 @@ def game(button):
 
 
 def main():
-    text = Label(root, text='Choose a player!', font=('bold', 50))
-    text.place(x=125, y=150)
+    text = Label(root, text='Choose a player!', font=('bold', main_font_size))
+    # text.place(x=125, y=150)
+    text.grid(row=1, column=2)
 
-    btn_x = Button(root, text='X', font=('bold', 75), command=lambda: game(btn_x))
-    btn_x.place(x=190, y=270)
+    btn_x = Button(root, text='X', font=('bold', main_btn_size), command=lambda: game(btn_x))
+    # btn_x.place(x=190, y=270)
+    btn_x.grid(row=2, column=2)
 
-    btn_o = Button(root, text='O', font=('bold', 75), command=lambda: game(btn_o))
-    btn_o.place(x=320, y=270)
+    btn_o = Button(root, text='O', font=('bold', main_btn_size), command=lambda: game(btn_o))
+    # btn_o.place(x=320, y=270)
+    btn_o.grid(row=3, column=2, sticky='n')
 
     root.mainloop()
 
@@ -220,5 +227,13 @@ if __name__ == "__main__":
 
     # Set the main window's position
     root.geometry(f"+{x}+{y}")
+
+    # Set the number of rows and columns
+    for i in range(5):
+        root.grid_rowconfigure(i, weight=1)
+        root.grid_columnconfigure(i, weight=1)
+
+    main_font_size = int(root.winfo_width() // 5)
+    main_btn_size = int(root.winfo_width() // 3)
 
     main()
