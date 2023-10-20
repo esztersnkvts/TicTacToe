@@ -48,11 +48,6 @@ def end_game_window():
     # Calculate font size based on the window dimensions
     font_size = int(window.winfo_width() // 15)
 
-    button_x_new_game = int(window.winfo_width() // 3.2)
-    button_y_new_game = int(window.winfo_height() // 2)
-    button_x_exit = int(window.winfo_width() // 2.5)
-    button_y_exit = int(window.winfo_height() // 1.5)
-
     # Set the number of rows and columns
     for i in range(5):
         window.grid_rowconfigure(i, weight=1)
@@ -61,12 +56,10 @@ def end_game_window():
     new_game_btn = Button(window, text='New Game', font=('bold', font_size), command=reset)
     # new_game_btn.place(x=130, y=200)
     new_game_btn.grid(row=2, column=2, sticky='s')
-    # new_game_btn.place(x=button_x_new_game, y=button_y_new_game)
 
     exit_btn = Button(window, text='Exit', font=('bold', font_size), command=exit_game)
     # exit_btn.place(x=170, y=250)
     exit_btn.grid(row=3, column=2)
-    # exit_btn.place(x=button_x_exit, y=button_y_exit)
 
 
 def disable_all_buttons():
@@ -132,10 +125,8 @@ def ai():
         end_game_window()
         font_size = int(window.winfo_width() // 10)
         text = Label(window, text='You lost!', font=('bold', font_size))
-        text_x = int(window.winfo_width() // 3.2)
-        text_y = int(window.winfo_height() // 4)
         # text.place(x=135, y=100)
-        text.place(x=text_x, y=text_y)
+        text.grid(row=1, column=2)
         disable_all_buttons()
     elif len(get_empty_cells(board)) == 0:
         end_game_window()
