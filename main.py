@@ -132,10 +132,8 @@ def ai():
         end_game_window()
         font_size = int(window.winfo_width() // 10)
         text = Label(window, text='Draw!', font=('bold', font_size))
-        text_x = int(window.winfo_width() // 2.5)
-        text_y = int(window.winfo_height() // 4)
         # text.place(x=160, y=100)
-        text.place(x=text_x, y=text_y)
+        text.grid(row=1, column=2)
 
 
 def user_move(row, col):
