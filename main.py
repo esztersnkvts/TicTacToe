@@ -53,15 +53,20 @@ def end_game_window():
     button_x_exit = int(window.winfo_width() // 2.5)
     button_y_exit = int(window.winfo_height() // 1.5)
 
+    # Set the number of rows and columns
+    for i in range(5):
+        window.grid_rowconfigure(i, weight=1)
+        window.grid_columnconfigure(i, weight=1)
+
     new_game_btn = Button(window, text='New Game', font=('bold', font_size), command=reset)
     # new_game_btn.place(x=130, y=200)
-    # new_game_btn.pack(side=TOP, anchor='center')
-    new_game_btn.place(x=button_x_new_game, y=button_y_new_game)
+    new_game_btn.grid(row=2, column=2, sticky='s')
+    # new_game_btn.place(x=button_x_new_game, y=button_y_new_game)
 
     exit_btn = Button(window, text='Exit', font=('bold', font_size), command=exit_game)
     # exit_btn.place(x=170, y=250)
-    # exit_btn.pack()
-    exit_btn.place(x=button_x_exit, y=button_y_exit)
+    exit_btn.grid(row=3, column=2)
+    # exit_btn.place(x=button_x_exit, y=button_y_exit)
 
 
 def disable_all_buttons():
