@@ -119,7 +119,7 @@ def best_move():
 
 def ai():
     ai_row, ai_col = best_move()
-    buttons[ai_row][ai_col].config(text=ai_symbol, font=('bold', 100), anchor="nw", padx=65, pady=40, state='disabled')
+    buttons[ai_row][ai_col].config(text=ai_symbol, state='disabled', relief='flat')
     board[ai_row][ai_col] = ai_symbol
     if check_win(board, ai_symbol):
         end_game_window()
@@ -137,7 +137,7 @@ def ai():
 
 
 def user_move(row, col):
-    buttons[row][col].config(text=user_symbol, font=('bold', 100), anchor="nw", padx=65, pady=40, state='disabled')
+    buttons[row][col].config(text=user_symbol, state='disabled', relief='flat')
     board[row][col] = user_symbol
     if check_win(board, user_symbol):
         end_game_window()
@@ -163,12 +163,14 @@ def create_board():
     board = []
     pos_x = 200
     pos_y = 200
+    symbol_size = int(root.winfo_width() // 6)
     for i in range(3):
         row = []
         board_row = []
         for j in range(3):
-            button = Button(root, width=20, height=20, command=lambda i=i, j=j: user_move(i, j))
-            button.place(x=j*pos_x, y=i*pos_y)
+            button = Button(root, font=('bold', symbol_size), width=10, height=10, command=lambda i=i, j=j: user_move(i, j))
+            # button.place(x=j*pos_x, y=i*pos_y)
+            button.grid(row=i, column=j, sticky='nsew')
             row.append(button)
             board_row.append('')
         buttons.append(row)
@@ -196,15 +198,15 @@ def game(button):
 def main():
     text = Label(root, text='Choose a player!', font=('bold', main_font_size))
     # text.place(x=125, y=150)
-    text.grid(row=1, column=2)
+    text.grid(row=0, column=1, sticky='s')
 
     btn_x = Button(root, text='X', font=('bold', main_btn_size), command=lambda: game(btn_x))
     # btn_x.place(x=190, y=270)
-    btn_x.grid(row=2, column=2)
+    btn_x.grid(row=1, column=1)
 
     btn_o = Button(root, text='O', font=('bold', main_btn_size), command=lambda: game(btn_o))
     # btn_o.place(x=320, y=270)
-    btn_o.grid(row=3, column=2, sticky='n')
+    btn_o.grid(row=2, column=1, sticky='n')
 
     root.mainloop()
 
@@ -229,11 +231,11 @@ if __name__ == "__main__":
     root.geometry(f"+{x}+{y}")
 
     # Set the number of rows and columns
-    for i in range(5):
+    for i in range(3):
         root.grid_rowconfigure(i, weight=1)
         root.grid_columnconfigure(i, weight=1)
 
-    main_font_size = int(root.winfo_width() // 5)
-    main_btn_size = int(root.winfo_width() // 3)
+    main_font_size = int(root.winfo_screenwidth() // 30)
+    main_btn_size = int(root.winfo_screenwidth() // 30)
 
     main()
