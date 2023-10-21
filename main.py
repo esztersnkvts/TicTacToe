@@ -1,7 +1,7 @@
 from tkinter import *
 
 # Define the depth limit for the Minimax algorithm (adjust as needed)
-MAX_DEPTH = 5
+MAX_DEPTH = 4
 
 
 def clear_root():
@@ -54,11 +54,9 @@ def end_game_window():
         window.grid_columnconfigure(i, weight=1)
 
     new_game_btn = Button(window, text='New Game', font=('bold', font_size), command=reset)
-    # new_game_btn.place(x=130, y=200)
     new_game_btn.grid(row=2, column=2, sticky='s')
 
     exit_btn = Button(window, text='Exit', font=('bold', font_size), command=exit_game)
-    # exit_btn.place(x=170, y=250)
     exit_btn.grid(row=3, column=2)
 
 
@@ -119,38 +117,34 @@ def best_move():
 
 def ai():
     ai_row, ai_col = best_move()
-    buttons[ai_row][ai_col].config(text=ai_symbol, state='disabled', relief='flat')
+    buttons[ai_row][ai_col].config(text=ai_symbol, state='disabled')
     board[ai_row][ai_col] = ai_symbol
     if check_win(board, ai_symbol):
         end_game_window()
         font_size = int(window.winfo_width() // 10)
         text = Label(window, text='You lost!', font=('bold', font_size))
-        # text.place(x=135, y=100)
         text.grid(row=1, column=2)
         disable_all_buttons()
     elif len(get_empty_cells(board)) == 0:
         end_game_window()
         font_size = int(window.winfo_width() // 10)
         text = Label(window, text='Draw!', font=('bold', font_size))
-        # text.place(x=160, y=100)
         text.grid(row=1, column=2)
 
 
 def user_move(row, col):
-    buttons[row][col].config(text=user_symbol, state='disabled', relief='flat')
+    buttons[row][col].config(text=user_symbol, state='disabled')
     board[row][col] = user_symbol
     if check_win(board, user_symbol):
         end_game_window()
         font_size = int(window.winfo_width() // 10)
         text = Label(window, text='You won!', font=('bold', font_size))
-        # text.place(x=135, y=100)
         text.grid(row=1, column=2)
         disable_all_buttons()
     elif len(get_empty_cells(board)) == 0:
         end_game_window()
         font_size = int(window.winfo_width() // 10)
         text = Label(window, text='Draw!', font=('bold', font_size))
-        # text.place(x=160, y=100)
         text.grid(row=1, column=2)
     else:
         ai()
@@ -161,15 +155,12 @@ def create_board():
     global board
     buttons = []
     board = []
-    pos_x = 200
-    pos_y = 200
     symbol_size = int(root.winfo_width() // 6)
     for i in range(3):
         row = []
         board_row = []
         for j in range(3):
             button = Button(root, font=('bold', symbol_size), width=10, height=10, command=lambda i=i, j=j: user_move(i, j))
-            # button.place(x=j*pos_x, y=i*pos_y)
             button.grid(row=i, column=j, sticky='nsew')
             row.append(button)
             board_row.append('')
@@ -197,15 +188,12 @@ def game(button):
 
 def main():
     text = Label(root, text='Choose a player!', font=('bold', main_font_size))
-    # text.place(x=125, y=150)
     text.grid(row=0, column=1, sticky='s')
 
     btn_x = Button(root, text='X', font=('bold', main_btn_size), command=lambda: game(btn_x))
-    # btn_x.place(x=190, y=270)
     btn_x.grid(row=1, column=1)
 
     btn_o = Button(root, text='O', font=('bold', main_btn_size), command=lambda: game(btn_o))
-    # btn_o.place(x=320, y=270)
     btn_o.grid(row=2, column=1, sticky='n')
 
     root.mainloop()
